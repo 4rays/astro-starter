@@ -27,13 +27,12 @@ Backlog for architecture and test-infrastructure alignment. Each item is scoped 
 
 The sections below are in stable numeric order, not pick-up order — numbers are never reused, and a checked box means current code or merged history proves the work landed. The open items, in the order they should be picked up:
 
-1. **6** — make the Dependabot config parse.
-2. **34** — publish a machine-readable description of the `/api/v1` surface.
-3. **26** — wire the D1 backup script into `package.json`.
-4. **32** — put the email consumer worker on the app's compatibility date.
-5. **29** — commit a component-registry config.
+1. **34** — publish a machine-readable description of the `/api/v1` surface.
+2. **26** — wire the D1 backup script into `package.json`.
+3. **32** — put the email consumer worker on the app's compatibility date.
+4. **29** — commit a component-registry config.
 
-**The gate they land against is in place.** Items 9, 16, and 31 shipped, so `.github/workflows/test.yml` runs `pnpm format:check`, `pnpm check`, `pnpm email-worker:check`, `pnpm test:run`, and `pnpm build` on every pull request — type errors, formatting drift, and build-only failures are all caught in CI rather than only on the author's machine. Nothing in the list above depends on anything else in it, so the order is by value, not by prerequisite: 6 is first because a config that cannot parse is silently withholding every dependency update this template would otherwise receive, and 34 is second because it is the only open item closing a contract that outside clients build against, and the one whose drift compounds the longer it sits.
+**The gate they land against is in place.** Items 9, 16, and 31 shipped, so `.github/workflows/test.yml` runs `pnpm format:check`, `pnpm check`, `pnpm email-worker:check`, `pnpm test:run`, and `pnpm build` on every pull request — type errors, formatting drift, and build-only failures are all caught in CI rather than only on the author's machine. Nothing in the list above depends on anything else in it, so the order is by value, not by prerequisite: 34 is first because it is the only open item closing a contract that outside clients build against, and the one whose drift compounds the longer it sits.
 
 **Parked, in this order, behind a `@cloudflare/vitest-pool-workers` release that carries a newer runtime.** Do not pick either up before that release exists; there is no code change available in this repository that closes them.
 
@@ -105,7 +104,7 @@ Re-check the parked pair on each planning pass by reading the pool's newest publ
 
 **Acceptance.** Coverage exists for both the authorized and unauthorized paths of `accountRoutes` using a genuine token, with no mocking of `jose` or the JWKS cache.
 
-### 6. Make the Dependabot configuration parse and cover both ecosystems
+### 6. [x] Make the Dependabot configuration parse and cover both ecosystems
 
 **Gap.** `.github/dependabot.yml` is the unedited GitHub template. Its single `updates` entry declares `package-ecosystem: ""` — the placeholder, still carrying the `# See documentation for possible values` comment — which is not a valid ecosystem identifier. GitHub rejects the file rather than falling back to a default, so no version-update branch has ever been opened for this repository and none will be. The file's presence is what makes that invisible: the repository looks like it has dependency automation configured.
 
