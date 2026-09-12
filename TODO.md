@@ -105,7 +105,7 @@ Re-check the parked pair on each planning pass by reading the pool's newest publ
 
 **Acceptance.** Coverage exists for both the authorized and unauthorized paths of `accountRoutes` using a genuine token, with no mocking of `jose` or the JWKS cache.
 
-### 6. Make the Dependabot configuration parse and cover both ecosystems
+### 6. [x] Make the Dependabot configuration parse and cover both ecosystems
 
 **Gap.** `.github/dependabot.yml` is the unedited GitHub template. Its single `updates` entry declares `package-ecosystem: ""` — the placeholder, still carrying the `# See documentation for possible values` comment — which is not a valid ecosystem identifier. GitHub rejects the file rather than falling back to a default, so no version-update branch has ever been opened for this repository and none will be. The file's presence is what makes that invisible: the repository looks like it has dependency automation configured.
 
